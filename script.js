@@ -21,14 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('confirm-booking').addEventListener('click', () => {
         const service = document.getElementById('service-select').value;
         const date = document.getElementById('date-select').value;
-        const time = document.getElementById('time-select').value;
+        const timeSlot = document.getElementById('time-select').value;
 
-        if (service && date && time) {
-            bookingDetails.textContent = `Service: ${service}, Date: ${date}, Time: ${time}`;
+        if (service && date && timeSlot) {
+            const startTime = timeSlot.split(' - ')[0];
+            const endTime = timeSlot.split(' - ')[1];
+            bookingDetails.textContent = `Service: ${service}, Date: ${date}, Time: ${startTime} - ${endTime}`;
             bookingForm.classList.add('hidden');
             bookingConfirmation.classList.remove('hidden');
         } else {
             alert('Please fill out all fields.');
         }
+    });
+
+    const exploreServicesBtn = document.querySelector('#home .btn-primary');
+    exploreServicesBtn.addEventListener('click', () => {
+        pages.forEach(page => {
+            page.classList.add('hidden');
+        });
+        document.getElementById('services').classList.remove('hidden');
     });
 });
